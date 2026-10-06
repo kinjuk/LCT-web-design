@@ -1,0 +1,267 @@
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap');
+
+  :root {
+    --bg:#08090b;--nav-bg:rgba(8,9,11,0.94);--nav-border:rgba(255,255,255,0.08);
+    --fg:#d4d8e0;--fg-dim:rgba(212,216,224,0.45);--fg-faint:rgba(212,216,224,0.22);
+    --fg-ghost:rgba(212,216,224,0.15);--border-thin:rgba(255,255,255,0.06);
+    --heading:#ffffff;--accent:#b0c32c;--accent-blue:#b5c5e9;
+    --cta-bg:#d4d8e0;--cta-fg:#08090b;
+    --card-overlay:rgba(8,9,11,0.45);--card-label:rgba(8,9,11,0.9);
+    --track-bg:rgba(255,255,255,0.08);--track-border:rgba(255,255,255,0.14);--thumb-color:rgba(212,216,224,0.5);
+  }
+  .lm {
+    --bg:#ebf5ec;--nav-bg:rgba(235,245,236,0.94);--nav-border:rgba(6,28,55,0.1);
+    --fg:#061c37;--fg-dim:rgba(6,28,55,0.55);--fg-faint:rgba(6,28,55,0.35);
+    --fg-ghost:rgba(6,28,55,0.22);--border-thin:rgba(6,28,55,0.08);
+    --heading:#061c37;--accent:#b0c32c;--accent-blue:#061c37;
+    --cta-bg:#061c37;--cta-fg:#ebf5ec;
+    --card-overlay:rgba(6,28,55,0.15);--card-label:rgba(6,28,55,0.82);
+    --track-bg:rgba(6,28,55,0.08);--track-border:rgba(6,28,55,0.18);--thumb-color:rgba(6,28,55,0.4);
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0;}
+  .s{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--fg);width:100%;transition:background 0.35s ease,color 0.35s ease;}
+
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:64px;position:fixed;top:0;left:0;right:0;z-index:20;background:var(--nav-bg);border-bottom:0.5px solid var(--nav-border);transition:background 0.35s ease,border-color 0.35s ease;}
+  .logo{display:inline-flex;align-items:baseline;gap:5px;font-family:Arial,Helvetica,sans-serif;font-weight:bold;}
+  .logo-lc{font-size:28px;color:#ffffff;line-height:1;}
+  .logo-tech{font-size:24px;line-height:1;}
+  .logo-t{color:#b1c625;}.logo-ech{color:#b1c6fc;}
+  .lm .logo-lc,.lm .logo-t,.lm .logo-ech{-webkit-text-stroke:0.6px #061c37;}
+  .nav-r{display:flex;align-items:center;gap:36px;}
+  .nav-links{display:flex;gap:32px;}
+  .nav-links a{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--fg-dim);text-decoration:none;cursor:pointer;transition:color 0.2s;}
+  .nav-links a:hover,.nav-links a.active{color:var(--fg);}
+  .theme-toggle{display:flex;align-items:center;gap:9px;cursor:pointer;user-select:none;}
+  .tt-icon{font-size:11px;color:var(--fg-dim);transition:color 0.25s;line-height:1;}
+  .tt-icon.active{color:var(--fg);}
+  .tt-track{position:relative;width:36px;height:18px;background:var(--track-bg);border:0.5px solid var(--track-border);border-radius:9px;transition:background 0.3s,border-color 0.3s;}
+  .tt-thumb{position:absolute;top:3px;left:3px;width:10px;height:10px;border-radius:50%;background:var(--thumb-color);transition:transform 0.28s cubic-bezier(.4,0,.2,1),background 0.25s;}
+  .lm .tt-thumb{transform:translateX(18px);}
+
+  .page-header{padding:148px 48px 80px;border-bottom:0.5px solid var(--border-thin);display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:end;}
+  .ph-kicker{font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--accent);margin-bottom:16px;}
+  .ph-h1{font-size:52px;font-weight:300;line-height:1.05;letter-spacing:-1.5px;color:var(--heading);transition:color 0.35s;}
+  .ph-body{font-size:13px;font-weight:300;line-height:1.9;color:var(--fg-dim);max-width:480px;align-self:end;}
+
+  /* CAPABILITY LIST — spec-sheet style */
+  .cap-list{border-bottom:0.5px solid var(--border-thin);}
+  .cap-row{display:grid;grid-template-columns:1fr 2fr;border-bottom:0.5px solid var(--border-thin);padding:36px 48px;gap:48px;}
+  .cap-row:last-child{border-bottom:none;}
+  .cap-label{font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:var(--accent);padding-top:4px;}
+  .cap-content h3{font-size:20px;font-weight:300;color:var(--heading);letter-spacing:-0.3px;margin-bottom:12px;transition:color 0.35s;}
+  .cap-content p{font-size:13px;font-weight:300;line-height:1.9;color:var(--fg-dim);}
+
+  .img-wide{width:100%;height:400px;overflow:hidden;border-bottom:0.5px solid var(--border-thin);position:relative;}
+  .img-wide img{width:100%;height:100%;object-fit:cover;filter:brightness(0.55) saturate(0.5);display:block;}
+  .img-wide-label{position:absolute;bottom:0;left:0;right:0;padding:28px 48px;background:linear-gradient(to top,var(--card-label) 0%,transparent 100%);font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:var(--accent);}
+
+  .img-short{display:grid;grid-template-columns:1fr 1fr;border-bottom:0.5px solid var(--border-thin);}
+  .img-short-cell{height:320px;overflow:hidden;position:relative;border-right:0.5px solid var(--border-thin);}
+  .img-short-cell:last-child{border-right:none;}
+  .img-short-cell img{width:100%;height:100%;object-fit:cover;filter:brightness(0.55) saturate(0.5);display:block;}
+  .img-short-cell-label{position:absolute;bottom:0;left:0;right:0;padding:20px 24px;background:linear-gradient(to top,var(--card-label) 0%,transparent 100%);}
+  .isc-tag{font-size:8px;letter-spacing:2.5px;text-transform:uppercase;color:var(--accent);margin-bottom:6px;}
+  .isc-name{font-size:14px;font-weight:300;color:#ffffff;letter-spacing:-0.2px;}
+  .isc-rule{width:64px;height:0.5px;background:rgba(255,255,255,0.35);margin-top:10px;}
+
+  .close{padding:96px 48px;border-bottom:0.5px solid var(--border-thin);display:flex;align-items:center;justify-content:space-between;}
+  .close-h2{font-size:40px;font-weight:300;color:var(--heading);letter-spacing:-1px;line-height:1.1;font-style:italic;transition:color 0.35s;}
+  .close-attr{font-size:13px;font-style:normal;font-weight:300;letter-spacing:1px;color:var(--fg-dim);display:block;margin-top:14px;}
+  .close-r{display:flex;flex-direction:column;align-items:flex-end;gap:16px;}
+  .close-detail{font-size:11px;color:var(--fg-dim);line-height:2.2;text-align:right;}
+  .close-detail a{color:var(--accent-blue);text-decoration:none;}
+  .close-footnote{font-size:8px;letter-spacing:0.3px;color:var(--fg-ghost);text-align:right;margin-top:-8px;}
+  .close-btn{font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:var(--cta-fg);background:var(--cta-bg);padding:12px 26px;cursor:pointer;transition:opacity 0.2s;}
+  .close-btn:hover{opacity:0.72;}
+  .foot{padding:22px 48px;display:flex;align-items:center;justify-content:space-between;}
+  .foot-l{font-size:9px;letter-spacing:1.5px;color:var(--fg-ghost);}
+  .foot-r{display:flex;gap:24px;}
+  .foot-r span{font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--fg-ghost);cursor:pointer;}
+  .foot-link{font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--fg-ghost);text-decoration:none;transition:color 0.2s;}
+  .foot-link:hover{color:var(--fg);}
+
+  .nav-hamburger{display:none;align-items:center;justify-content:center;cursor:pointer;color:var(--fg);width:32px;height:32px;}
+  .mobile-menu{display:none;position:fixed;top:64px;left:0;right:0;z-index:99;background:var(--nav-bg);border-bottom:0.5px solid var(--nav-border);padding:24px 24px 32px;flex-direction:column;gap:0;transition:background 0.35s;}
+  .mobile-menu.open{display:flex;}
+  .mobile-menu a{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--fg-dim);text-decoration:none;padding:14px 0;border-bottom:0.5px solid var(--border-thin);transition:color 0.2s;}
+  .mobile-menu a:last-child{border-bottom:none;}
+  .mobile-menu a:hover{color:var(--fg);}
+
+  @media (max-width:768px){
+    .nav{padding:0 24px;}
+    .nav-links{display:none;}
+    .nav-hamburger{display:flex;}
+    .nav-r{gap:20px;}
+    .logo-lc{font-size:22px;}
+    .logo-tech{font-size:18px;}
+
+    .page-header{padding:100px 24px 48px;grid-template-columns:1fr;}
+    .ph-h1{font-size:36px;letter-spacing:-1px;}
+
+    .cap-row{grid-template-columns:1fr;padding:28px 24px;gap:12px;}
+
+    .img-wide{height:240px;}
+    .img-wide-label{padding:20px 24px;}
+
+    .img-short{grid-template-columns:1fr;}
+    .img-short-cell{border-right:none;border-bottom:0.5px solid var(--border-thin);}
+    .img-short-cell:last-child{border-bottom:none;}
+
+    .close{padding:56px 24px;flex-direction:column;align-items:flex-start;gap:40px;}
+    .close-h2{font-size:28px;}
+    .close-r{align-items:flex-start;}
+    .close-detail{text-align:left;}
+    .close-footnote{text-align:left;}
+
+    .foot{padding:18px 24px;flex-direction:row;align-items:center;justify-content:space-between;}
+  }
+</style>
+
+<div class="s" id="site">
+
+  <nav class="nav">
+    <a class="logo" href="index.html" style="text-decoration:none;">
+      <span class="logo-lc">LC</span>
+      <span class="logo-tech"><span class="logo-t">T</span><span class="logo-ech">echnologies</span></span>
+    </a>
+    <div class="nav-r">
+      <div class="nav-links">
+        <a href="diagnostics.html">Diagnostics</a>
+        <a href="capabilities.html" class="active">Capabilities</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="theme-toggle" id="themeToggle">
+        <span class="tt-icon" id="iconMoon">☽</span>
+        <div class="tt-track"><div class="tt-thumb"></div></div>
+        <span class="tt-icon" id="iconSun">☀</span>
+      </div>
+      <div class="nav-hamburger" id="hamburger">
+        <svg id="iconMenu" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/></svg>
+        <svg id="iconClose" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="display:none;"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </div>
+    </div>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="diagnostics.html">Diagnostics</a>
+    <a href="capabilities.html">Capabilities</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+  </div>
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <div>
+      <div class="ph-kicker">Capabilities</div>
+      <h1 class="ph-h1">Precision-Crafted.<br>From DC to 1.2 THz.</h1>
+    </div>
+    <p class="ph-body">
+      Placeholder — describe the in-house capability scope. LC Technologies designs, fabricates and characterises complete RF, microwave and millimeter-wave assemblies, from discrete components to fully integrated systems. Hybrid and MMIC-based designs, manual and CNC-machined parts.
+    </p>
+  </div>
+
+  <!-- CAPABILITY LIST -->
+  <div class="cap-list">
+    <div class="cap-row">
+      <div class="cap-label">01</div>
+      <div class="cap-content">
+        <h3>Design & Simulation</h3>
+        <p>Placeholder — in-house EM simulation, circuit design, and system-level modelling. Tools and methodologies used. Frequency ranges covered.</p>
+      </div>
+    </div>
+    <div class="cap-row">
+      <div class="cap-label">02</div>
+      <div class="cap-content">
+        <h3>Fabrication & Machining</h3>
+        <p>Placeholder — CNC and manual machining of millimeter-wave components. Materials: aluminium, brass, HDPE, custom alloys. Tolerances achievable.</p>
+      </div>
+    </div>
+    <div class="cap-row">
+      <div class="cap-label">03</div>
+      <div class="cap-content">
+        <h3>Hybrid & MMIC Assembly</h3>
+        <p>Placeholder — bare die device integration, wire bonding, hybrid assembly. Frequency performance, substrate types, packaging approaches.</p>
+      </div>
+    </div>
+    <div class="cap-row">
+      <div class="cap-label">04</div>
+      <div class="cap-content">
+        <h3>Characterisation & Testing</h3>
+        <p>Placeholder — in-house measurement capability up to 1.2 THz. Vector network analysis, noise figure, power measurement. Lab equipment overview.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- WIDE FILLER IMAGE -->
+  <div class="img-wide">
+    <img src="assets/cap1.jpg" alt="Capabilities">
+    <div class="img-wide-label">Placeholder — lab or fabrication image</div>
+  </div>
+
+  <!-- SHORT IMAGE PAIR -->
+  <div class="img-short">
+    <div class="img-short-cell">
+      <img src="assets/cap2.jpg" alt="Capabilities 02">
+      <div class="img-short-cell-label">
+        <div class="isc-tag">In-house</div>
+        <div class="isc-name">Millimeter-wave modules</div>
+        <div class="isc-rule"></div>
+      </div>
+    </div>
+    <div class="img-short-cell">
+      <img src="assets/cap3.jpg" alt="Capabilities 03">
+      <div class="img-short-cell-label">
+        <div class="isc-tag">In-house</div>
+        <div class="isc-name">Vacuum windows & feeds</div>
+        <div class="isc-rule"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTACT -->
+  <div class="close">
+    <div class="close-h2">"The heart of science<br>is measurement."<span class="close-attr"> — Erik Brynjolfsson</span></div>
+    <div class="close-r">
+      <div class="close-detail">
+        <a href="mailto:info@cupidotech.com">info@cupidotech.com</a><br>
+        +351 234 283 611*<br>
+        Eixo · Aveiro · Portugal
+      </div>
+      <div class="close-footnote">*custo de chamada para a rede fixa nacional</div>
+      <a href="contact.html" class="close-btn" style="text-decoration:none;">Get in touch</a>
+    </div>
+  </div>
+
+  <footer class="foot">
+    <div class="foot-l">© 2026 LC Technologies</div>
+    <div class="foot-r">
+      <a href="privacy.html" class="foot-link">Privacy</a>
+      <a href="terms.html" class="foot-link">Terms</a>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+  const site=document.getElementById('site'),toggle=document.getElementById('themeToggle'),moon=document.getElementById('iconMoon'),sun=document.getElementById('iconSun');
+  const hamburger=document.getElementById('hamburger'),mobileMenu=document.getElementById('mobileMenu');
+  let isLight=false;
+  function setMode(l){isLight=l;site.classList.toggle('lm',l);moon.classList.toggle('active',!l);sun.classList.toggle('active',l);}
+  setMode(false);
+  toggle.addEventListener('click',()=>setMode(!isLight));
+  hamburger.addEventListener('click',()=>{
+    const open = mobileMenu.classList.toggle('open');
+    document.getElementById('iconMenu').style.display = open ? 'none' : 'block';
+    document.getElementById('iconClose').style.display = open ? 'block' : 'none';
+  });
+  mobileMenu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{
+    mobileMenu.classList.remove('open');
+    document.getElementById('iconMenu').style.display = 'block';
+    document.getElementById('iconClose').style.display = 'none';
+  }));
+</script>

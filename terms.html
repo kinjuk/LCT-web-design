@@ -1,0 +1,152 @@
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap');
+
+  :root {
+    --bg:#08090b;--nav-bg:rgba(8,9,11,0.94);--nav-border:rgba(255,255,255,0.08);
+    --fg:#d4d8e0;--fg-dim:rgba(212,216,224,0.45);--fg-faint:rgba(212,216,224,0.22);
+    --fg-ghost:rgba(212,216,224,0.15);--border-thin:rgba(255,255,255,0.06);
+    --heading:#ffffff;--accent:#b0c32c;--accent-blue:#b5c5e9;
+    --cta-bg:#d4d8e0;--cta-fg:#08090b;
+    --track-bg:rgba(255,255,255,0.08);--track-border:rgba(255,255,255,0.14);--thumb-color:rgba(212,216,224,0.5);
+  }
+  .lm {
+    --bg:#ebf5ec;--nav-bg:rgba(235,245,236,0.94);--nav-border:rgba(6,28,55,0.1);
+    --fg:#061c37;--fg-dim:rgba(6,28,55,0.55);--fg-faint:rgba(6,28,55,0.35);
+    --fg-ghost:rgba(6,28,55,0.22);--border-thin:rgba(6,28,55,0.08);
+    --heading:#061c37;--accent:#b0c32c;--accent-blue:#061c37;
+    --cta-bg:#061c37;--cta-fg:#ebf5ec;
+    --track-bg:rgba(6,28,55,0.08);--track-border:rgba(6,28,55,0.18);--thumb-color:rgba(6,28,55,0.4);
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0;}
+  .s{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--fg);width:100%;transition:background 0.35s ease,color 0.35s ease;}
+
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:64px;position:fixed;top:0;left:0;right:0;z-index:20;background:var(--nav-bg);border-bottom:0.5px solid var(--nav-border);transition:background 0.35s ease,border-color 0.35s ease;}
+  .logo{display:inline-flex;align-items:baseline;gap:5px;font-family:Arial,Helvetica,sans-serif;font-weight:bold;text-decoration:none;}
+  .logo-lc{font-size:28px;color:#ffffff;line-height:1;}
+  .logo-tech{font-size:24px;line-height:1;}
+  .logo-t{color:#b1c625;}.logo-ech{color:#b1c6fc;}
+  .lm .logo-lc,.lm .logo-t,.lm .logo-ech{-webkit-text-stroke:0.6px #061c37;}
+  .nav-r{display:flex;align-items:center;gap:36px;}
+  .nav-links{display:flex;gap:32px;}
+  .nav-links a{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--fg-dim);text-decoration:none;cursor:pointer;transition:color 0.2s;}
+  .nav-links a:hover{color:var(--fg);}
+  .theme-toggle{display:flex;align-items:center;gap:9px;cursor:pointer;user-select:none;}
+  .tt-icon{font-size:11px;color:var(--fg-dim);transition:color 0.25s;line-height:1;}
+  .tt-icon.active{color:var(--fg);}
+  .tt-track{position:relative;width:36px;height:18px;background:var(--track-bg);border:0.5px solid var(--track-border);border-radius:9px;}
+  .tt-thumb{position:absolute;top:3px;left:3px;width:10px;height:10px;border-radius:50%;background:var(--thumb-color);transition:transform 0.28s cubic-bezier(.4,0,.2,1),background 0.25s;}
+  .lm .tt-thumb{transform:translateX(18px);}
+
+  .page-header{padding:148px 48px 80px;border-bottom:0.5px solid var(--border-thin);}
+  .ph-kicker{font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--accent);margin-bottom:16px;}
+  .ph-h1{font-size:52px;font-weight:300;line-height:1.05;letter-spacing:-1.5px;color:var(--heading);transition:color 0.35s;}
+  .ph-date{font-size:11px;color:var(--fg-faint);margin-top:14px;letter-spacing:0.5px;}
+
+  .doc-body{max-width:760px;margin:0 auto;padding:80px 48px 96px;border-bottom:0.5px solid var(--border-thin);}
+  .doc-body h2{font-size:13px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-top:56px;margin-bottom:18px;}
+  .doc-body h2:first-child{margin-top:0;}
+  .doc-body p{font-size:13px;font-weight:300;line-height:1.95;color:var(--fg-dim);margin-bottom:14px;}
+  .doc-body p:last-child{margin-bottom:0;}
+  .doc-body ul{list-style:none;padding:0;margin-bottom:14px;}
+  .doc-body ul li{font-size:13px;font-weight:300;line-height:1.95;color:var(--fg-dim);padding-left:16px;position:relative;margin-bottom:6px;}
+  .doc-body ul li::before{content:'—';position:absolute;left:0;color:var(--accent);}
+  .doc-body a{color:var(--accent-blue);text-decoration:none;}
+  .doc-body a:hover{text-decoration:underline;}
+
+  .foot{padding:22px 48px;display:flex;align-items:center;justify-content:space-between;border-top:0.5px solid var(--border-thin);}
+  .foot-l{font-size:9px;letter-spacing:1.5px;color:var(--fg-ghost);}
+  .foot-r{display:flex;gap:24px;}
+  .foot-r a{font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--fg-ghost);text-decoration:none;cursor:pointer;}
+  .foot-r a:hover{color:var(--fg);}
+
+  .nav-hamburger{display:none;align-items:center;justify-content:center;cursor:pointer;color:var(--fg);width:32px;height:32px;}
+  .mobile-menu{display:none;position:fixed;top:64px;left:0;right:0;z-index:99;background:var(--nav-bg);border-bottom:0.5px solid var(--nav-border);padding:24px 24px 32px;flex-direction:column;gap:0;transition:background 0.35s;}
+  .mobile-menu.open{display:flex;}
+  .mobile-menu a{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--fg-dim);text-decoration:none;padding:14px 0;border-bottom:0.5px solid var(--border-thin);transition:color 0.2s;}
+  .mobile-menu a:last-child{border-bottom:none;}
+  .mobile-menu a:hover{color:var(--fg);}
+  @media (max-width:768px){
+    .nav{padding:0 24px;}
+    .nav-links{display:none;}
+    .nav-hamburger{display:flex;}
+    .nav-r{gap:20px;}
+    .logo-lc{font-size:22px;}
+    .logo-tech{font-size:18px;}
+    .doc-body{padding:48px 24px 64px;}
+    .foot{padding:18px 24px;flex-direction:row;align-items:center;justify-content:space-between;}
+  }
+</style>
+
+<div class="s" id="site">
+
+  <nav class="nav">
+    <a class="logo" href="index.html">
+      <span class="logo-lc">LC</span>
+      <span class="logo-tech"><span class="logo-t">T</span><span class="logo-ech">echnologies</span></span>
+    </a>
+    <div class="nav-r">
+      <div class="nav-links">
+        <a href="diagnostics.html">Diagnostics</a>
+        <a href="capabilities.html">Capabilities</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="theme-toggle" id="themeToggle">
+        <span class="tt-icon" id="iconMoon">☽</span>
+        <div class="tt-track"><div class="tt-thumb"></div></div>
+        <span class="tt-icon" id="iconSun">☀</span>
+      <div class="nav-hamburger" id="hamburger">
+        <svg id="iconMenu" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/></svg>
+        <svg id="iconClose" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="display:none;"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </div>
+    </div>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="diagnostics.html">Diagnostics</a>
+    <a href="capabilities.html">Capabilities</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+  </div>
+
+  <div class="page-header">
+    <div class="ph-kicker">Legal</div>
+    <h1 class="ph-h1">Terms of Use</h1>
+    <div class="ph-date">Last updated: June 2026</div>
+  </div>
+
+  <div class="doc-body">
+    <p>By accessing this website (cupidotech.com), you agree to these Terms of Use. If you do not agree, please do not use the site. These terms apply to all visitors. This website is operated by LC Technologies, Lda., Eixo, Aveiro, Portugal. It is an informational website presenting the company's services, capabilities and participation in international research programmes. No products are sold directly through this site. All content on this site, including text, design, graphics, images and layout, is the property of LC Technologies or used with permission, and is protected under applicable copyright and intellectual property law. You may not reproduce, distribute, or use any content from this site for commercial purposes without prior written permission from LC Technologies. You agree to use this site only for lawful purposes. You may not attempt to gain unauthorised access to any part of the site or its server, transmit any harmful, offensive, or disruptive content via the contact form, or use automated tools to scrape, crawl, or copy content from the site. This site contains links to third-party websites including research institutions, funding bodies and partner organisations. These links are provided for reference only. LC Technologies has no control over and accepts no responsibility for the content, availability or practices of external sites. The information on this site is provided in good faith and is accurate to the best of our knowledge. However, LC Technologies makes no warranties, express or implied, regarding the completeness, accuracy or fitness for any particular purpose of the information presented. LC Technologies shall not be liable for any loss or damage arising from the use of, or inability to use, this website or its content. These terms are governed by Portuguese law. Any disputes arising from the use of this website shall be subject to the exclusive jurisdiction of the courts of Aveiro, Portugal. We reserve the right to update these terms at any time. The date at the top of this page reflects the most recent revision. Continued use of the site after changes constitutes acceptance of the updated terms. For any questions regarding these terms, contact us at <a href="mailto:info@cupidotech.com">info@cupidotech.com</a>.</p>
+  </div>
+
+  <footer class="foot">
+    <div class="foot-l">© 2026 LC Technologies</div>
+    <div class="foot-r">
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+  const site=document.getElementById('site'),toggle=document.getElementById('themeToggle'),moon=document.getElementById('iconMoon'),sun=document.getElementById('iconSun');
+  let isLight=false;
+  function setMode(l){isLight=l;site.classList.toggle('lm',l);moon.classList.toggle('active',!l);sun.classList.toggle('active',l);}
+  setMode(false);
+  toggle.addEventListener('click',()=>setMode(!isLight));
+  const hamburger=document.getElementById('hamburger'),mobileMenu=document.getElementById('mobileMenu');
+  hamburger.addEventListener('click',()=>{
+    const open=mobileMenu.classList.toggle('open');
+    document.getElementById('iconMenu').style.display=open?'none':'block';
+    document.getElementById('iconClose').style.display=open?'block':'none';
+  });
+  mobileMenu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{
+    mobileMenu.classList.remove('open');
+    document.getElementById('iconMenu').style.display='block';
+    document.getElementById('iconClose').style.display='none';
+  }));
+</script>

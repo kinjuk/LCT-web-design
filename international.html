@@ -1,0 +1,385 @@
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap');
+
+  :root {
+    --bg:#08090b;--nav-bg:rgba(8,9,11,0.94);--nav-border:rgba(255,255,255,0.08);
+    --fg:#d4d8e0;--fg-dim:rgba(212,216,224,0.45);--fg-faint:rgba(212,216,224,0.22);
+    --fg-ghost:rgba(212,216,224,0.15);--border-thin:rgba(255,255,255,0.06);
+    --heading:#ffffff;--accent:#b0c32c;--accent-blue:#b5c5e9;
+    --cta-bg:#d4d8e0;--cta-fg:#08090b;
+    --card-label:rgba(8,9,11,0.9);
+    --track-bg:rgba(255,255,255,0.08);--track-border:rgba(255,255,255,0.14);--thumb-color:rgba(212,216,224,0.5);
+  }
+  .lm {
+    --bg:#ebf5ec;--nav-bg:rgba(235,245,236,0.94);--nav-border:rgba(6,28,55,0.1);
+    --fg:#061c37;--fg-dim:rgba(6,28,55,0.55);--fg-faint:rgba(6,28,55,0.35);
+    --fg-ghost:rgba(6,28,55,0.22);--border-thin:rgba(6,28,55,0.08);
+    --heading:#061c37;--accent:#b0c32c;--accent-blue:#061c37;
+    --cta-bg:#061c37;--cta-fg:#ebf5ec;
+    --card-label:rgba(6,28,55,0.82);
+    --track-bg:rgba(6,28,55,0.08);--track-border:rgba(6,28,55,0.18);--thumb-color:rgba(6,28,55,0.4);
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0;}
+  .s{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--fg);width:100%;transition:background 0.35s ease,color 0.35s ease;}
+
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:64px;position:fixed;top:0;left:0;right:0;z-index:20;background:var(--nav-bg);border-bottom:0.5px solid var(--nav-border);transition:background 0.35s ease,border-color 0.35s ease;}
+  .logo{display:inline-flex;align-items:baseline;gap:5px;font-family:Arial,Helvetica,sans-serif;font-weight:bold;}
+  .logo-lc{font-size:28px;color:#ffffff;line-height:1;}
+  .logo-tech{font-size:24px;line-height:1;}
+  .logo-t{color:#b1c625;}.logo-ech{color:#b1c6fc;}
+  .lm .logo-lc,.lm .logo-t,.lm .logo-ech{-webkit-text-stroke:0.6px #061c37;}
+  .nav-r{display:flex;align-items:center;gap:36px;}
+  .nav-links{display:flex;gap:32px;}
+  .nav-links a{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--fg-dim);text-decoration:none;cursor:pointer;transition:color 0.2s;}
+  .nav-links a:hover,.nav-links a.active{color:var(--fg);}
+  .theme-toggle{display:flex;align-items:center;gap:9px;cursor:pointer;user-select:none;}
+  .tt-icon{font-size:11px;color:var(--fg-dim);transition:color 0.25s;line-height:1;}
+  .tt-icon.active{color:var(--fg);}
+  .tt-track{position:relative;width:36px;height:18px;background:var(--track-bg);border:0.5px solid var(--track-border);border-radius:9px;transition:background 0.3s,border-color 0.3s;}
+  .tt-thumb{position:absolute;top:3px;left:3px;width:10px;height:10px;border-radius:50%;background:var(--thumb-color);transition:transform 0.28s cubic-bezier(.4,0,.2,1),background 0.25s;}
+  .lm .tt-thumb{transform:translateX(18px);}
+
+  .page-header{padding:148px 48px 80px;border-bottom:0.5px solid var(--border-thin);display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:end;}
+  .ph-kicker{font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--accent);margin-bottom:16px;}
+  .ph-h1{font-size:52px;font-weight:300;line-height:1.05;letter-spacing:-1.5px;color:var(--heading);transition:color 0.35s;}
+  .ph-body{font-size:13px;font-weight:300;line-height:1.9;color:var(--fg-dim);max-width:480px;align-self:end;}
+
+  /* ── CUSTOMERS TICKER ───────────────────────────────────────── */
+  .section-label{
+    padding:48px 48px 0;
+    font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--accent);
+    border-top:0.5px solid var(--border-thin);
+  }
+  .clients{
+    border-bottom:0.5px solid var(--border-thin);
+    overflow:hidden;position:relative;padding:0;margin-top:32px;
+  }
+  .clients::before,.clients::after{
+    content:'';position:absolute;top:0;bottom:0;width:80px;z-index:2;pointer-events:none;
+  }
+  .clients::before{left:0;background:linear-gradient(to right,var(--bg),transparent);}
+  .clients::after{right:0;background:linear-gradient(to left,var(--bg),transparent);}
+  .ticker-track{display:flex;width:max-content;animation:ticker 28s linear infinite;}
+  .ticker-track:hover{animation-play-state:paused;}
+  @keyframes ticker{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+  .cl{
+    display:inline-flex;align-items:center;justify-content:center;
+    font-size:9px;letter-spacing:2.5px;text-transform:uppercase;
+    color:var(--fg-faint);
+    padding:22px 32px;
+    white-space:nowrap;
+    text-decoration:none;
+    border-right:0.5px solid var(--border-thin);
+    transition:color 0.2s;
+    cursor:pointer;
+    min-height:68px;
+  }
+  .cl:hover{ color:var(--fg); }
+  .cl img{
+    height:36px;
+    width:auto;
+    display:block;
+    mix-blend-mode:multiply;
+    opacity:0.8;
+    transition:opacity 0.2s;
+  }
+  .lm .cl img{ mix-blend-mode:multiply; }
+  .cl:hover img{ opacity:1; }
+
+  /* ── PROGRAMMES ─────────────────────────────────────────────── */
+  .programmes{border-bottom:0.5px solid var(--border-thin);}
+  .prog-row{display:grid;grid-template-columns:280px 1fr;border-bottom:0.5px solid var(--border-thin);}
+  .prog-row:last-child{border-bottom:none;}
+  .prog-img{overflow:hidden;width:280px;height:280px;flex-shrink:0;}
+  .prog-img img{width:100%;height:100%;object-fit:cover;filter:brightness(0.55) saturate(0.5);display:block;}
+  .prog-content{padding:52px 48px;border-left:0.5px solid var(--border-thin);}
+  .prog-tag{font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:var(--accent);margin-bottom:16px;}
+  .prog-title{font-size:28px;font-weight:300;color:var(--heading);letter-spacing:-0.5px;margin-bottom:20px;transition:color 0.35s;}
+  .prog-body{font-size:13px;font-weight:300;line-height:1.9;color:var(--fg-dim);}
+  .prog-rule{width:64px;height:0.5px;background:var(--accent);margin-top:28px;opacity:0.5;}
+
+  /* ── EU FUNDED ──────────────────────────────────────────────── */
+  .eu-section{border-bottom:0.5px solid var(--border-thin);}
+  .eu-header{padding:64px 48px 40px;border-bottom:0.5px solid var(--border-thin);}
+  .eu-header-kicker{font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--accent);margin-bottom:14px;}
+  .eu-header-h2{font-size:36px;font-weight:300;color:var(--heading);letter-spacing:-0.8px;transition:color 0.35s;}
+  .eu-header-sub{font-size:13px;font-weight:300;line-height:1.9;color:var(--fg-dim);max-width:560px;margin-top:16px;}
+
+  /* single project card */
+  .eu-project-card{
+    display:block;
+    text-decoration:none;
+    padding:48px;
+    cursor:pointer;
+  }
+  .eu-project-card-inner{
+    display:grid;
+    grid-template-columns:320px 1fr;
+    gap:48px;
+    align-items:start;
+    border:0.5px solid var(--border-thin);
+    padding:40px;
+    transition:border-color 0.2s;
+  }
+  .eu-project-card:hover .eu-project-card-inner{border-color:var(--accent);}
+  .eu-project-card-inner img{
+    width:100%;
+    display:block;
+    opacity:0.85;
+    transition:opacity 0.2s;
+  }
+  .eu-project-card:hover .eu-project-card-inner img{opacity:1;}
+  .eu-project-card-tag{font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:var(--accent);margin-bottom:16px;}
+  .eu-project-card-title{font-size:20px;font-weight:300;color:var(--heading);letter-spacing:-0.3px;line-height:1.4;transition:color 0.35s;}
+  .eu-project-card-rule{width:64px;height:0.5px;background:var(--accent);margin-top:24px;opacity:0.5;}
+
+  .close{padding:96px 48px;border-bottom:0.5px solid var(--border-thin);display:flex;align-items:center;justify-content:space-between;}
+  .close-h2{font-size:40px;font-weight:300;color:var(--heading);letter-spacing:-1px;line-height:1.1;font-style:italic;transition:color 0.35s;}
+  .close-attr{font-size:13px;font-style:normal;font-weight:300;letter-spacing:1px;color:var(--fg-dim);display:block;margin-top:14px;}
+  .close-r{display:flex;flex-direction:column;align-items:flex-end;gap:16px;}
+  .close-detail{font-size:11px;color:var(--fg-dim);line-height:2.2;text-align:right;}
+  .close-detail a{color:var(--accent-blue);text-decoration:none;}
+  .close-footnote{font-size:8px;letter-spacing:0.3px;color:var(--fg-ghost);text-align:right;margin-top:-8px;}
+  .close-btn{font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:var(--cta-fg);background:var(--cta-bg);padding:12px 26px;cursor:pointer;transition:opacity 0.2s;}
+  .close-btn:hover{opacity:0.72;}
+  .foot{padding:22px 48px;display:flex;align-items:center;justify-content:space-between;}
+  .foot-l{font-size:9px;letter-spacing:1.5px;color:var(--fg-ghost);}
+  .foot-r{display:flex;gap:24px;}
+  .foot-r span{font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--fg-ghost);cursor:pointer;}
+  .foot-link{font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--fg-ghost);text-decoration:none;transition:color 0.2s;}
+  .foot-link:hover{color:var(--fg);}
+
+  .nav-hamburger{display:none;align-items:center;justify-content:center;cursor:pointer;color:var(--fg);width:32px;height:32px;}
+  .mobile-menu{display:none;position:fixed;top:64px;left:0;right:0;z-index:99;background:var(--nav-bg);border-bottom:0.5px solid var(--nav-border);padding:24px 24px 32px;flex-direction:column;gap:0;transition:background 0.35s;}
+  .mobile-menu.open{display:flex;}
+  .mobile-menu a{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--fg-dim);text-decoration:none;padding:14px 0;border-bottom:0.5px solid var(--border-thin);transition:color 0.2s;}
+  .mobile-menu a:last-child{border-bottom:none;}
+  .mobile-menu a:hover{color:var(--fg);}
+
+  @media (max-width:768px){
+    .nav{padding:0 24px;}
+    .nav-links{display:none;}
+    .nav-hamburger{display:flex;}
+    .nav-r{gap:20px;}
+    .logo-lc{font-size:22px;}
+    .logo-tech{font-size:18px;}
+
+    .page-header{padding:100px 24px 48px;grid-template-columns:1fr;}
+    .ph-h1{font-size:36px;letter-spacing:-1px;}
+
+    .section-label{padding:32px 24px 0;}
+    .clients::before,.clients::after{width:40px;}
+    .cl img{height:28px;}
+    .cl{padding:18px 20px;}
+
+    .prog-row{grid-template-columns:1fr;}
+    .prog-img img{min-height:200px;max-height:220px;object-position:center -25px;}
+    .prog-content{padding:32px 24px;border-left:none;border-top:0.5px solid var(--border-thin);}
+    .prog-title{font-size:22px;}
+
+    .eu-header{padding:40px 24px 32px;}
+    .eu-header-h2{font-size:28px;}
+    .eu-project-card{padding:24px;}
+    .eu-project-card-inner{grid-template-columns:1fr;gap:24px;}
+    .eu-project-card-title{font-size:16px;}
+
+    .close{padding:56px 24px;flex-direction:column;align-items:flex-start;gap:40px;}
+    .close-h2{font-size:28px;}
+    .close-r{align-items:flex-start;}
+    .close-detail{text-align:left;}
+    .close-footnote{text-align:left;}
+
+    .foot{padding:18px 24px;flex-direction:row;align-items:center;justify-content:space-between;}
+  }
+</style>
+
+<div class="s" id="site">
+
+  <nav class="nav">
+    <a class="logo" href="index.html" style="text-decoration:none;">
+      <span class="logo-lc">LC</span>
+      <span class="logo-tech"><span class="logo-t">T</span><span class="logo-ech">echnologies</span></span>
+    </a>
+    <div class="nav-r">
+      <div class="nav-links">
+        <a href="diagnostics.html">Diagnostics</a>
+        <a href="capabilities.html">Capabilities</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="theme-toggle" id="themeToggle">
+        <span class="tt-icon" id="iconMoon">☽</span>
+        <div class="tt-track"><div class="tt-thumb"></div></div>
+        <span class="tt-icon" id="iconSun">☀</span>
+      </div>
+      <div class="nav-hamburger" id="hamburger">
+        <svg id="iconMenu" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/></svg>
+        <svg id="iconClose" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="display:none;"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </div>
+    </div>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="diagnostics.html">Diagnostics</a>
+    <a href="capabilities.html">Capabilities</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+  </div>
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <div>
+      <div class="ph-kicker">International Participation</div>
+      <h1 class="ph-h1">At the Edge<br>of the Spectrum.</h1>
+    </div>
+    <p class="ph-body">
+      LC Technologies has contributed instrumentation, sub-assemblies and complete systems to leading research institutions across Europe and beyond, from fusion reactors to orbital observatories and next-generation radio telescopes.
+    </p>
+  </div>
+
+  <!-- CUSTOMERS -->
+  <div class="section-label">Customers & Partners</div>
+  <div class="clients">
+    <div class="ticker-track">
+      <!-- set A -->
+      <a class="cl" href="http://www.esa.int/" target="_blank" rel="noopener"><img src="assets/ico_esa.jpg" alt="European Space Agency"></a>
+      <a class="cl" href="https://www.joanneum.at/" target="_blank" rel="noopener"><img src="assets/ico_jor.jpg" alt="JOANNEUM RESEARCH"></a>
+      <a class="cl" href="http://www.it.pt/" target="_blank" rel="noopener"><img src="assets/ico_it.jpg" alt="Instituto de Telecomunicações"></a>
+      <a class="cl" href="http://www.ijs.si/ijsw/JSI" target="_blank" rel="noopener"><img src="assets/ico_ijs.jpg" alt="Institut Jožef Stefan"></a>
+      <a class="cl" href="http://www.ipp.mpg.de/" target="_blank" rel="noopener"><img src="assets/ico_ipp.jpg" alt="IPP / MPG Munich"></a>
+      <a class="cl" href="http://www.aspoeck.com/" target="_blank" rel="noopener"><img src="assets/ico_aspock.jpg" alt="Aspock Systems"></a>
+      <a class="cl" href="https://www.vttresearch.com/en" target="_blank" rel="noopener"><img src="assets/ico_vtt.jpg" alt="VTT Finland"></a>
+      <a class="cl" href="http://www.iter.org/" target="_blank" rel="noopener"><img src="assets/ico_iter.jpg" alt="ITER"></a>
+      <a class="cl" href="http://www.magyc.it/" target="_blank" rel="noopener"><img src="assets/ico_magyc.jpg" alt="Magyc"></a>
+      <a class="cl" href="http://www.ciemat.es/" target="_blank" rel="noopener"><img src="assets/ico_ciemat.jpg" alt="CIEMAT"></a>
+      <a class="cl" href="http://www.activespacetech.com/" target="_blank" rel="noopener"><img src="assets/ico_ast.jpg" alt="Active Space Technologies"></a>
+      <a class="cl" href="https://uclouvain.be/en/index.html" target="_blank" rel="noopener"><img src="assets/ico_ucl.jpg" alt="UCL Belgium"></a>
+      <a class="cl" href="http://www.gov.uk/government/organisations/uk-atomic-energy-authority" target="_blank" rel="noopener"><img src="assets/ico_ukaea.jpg" alt="UKAEA"></a>
+      <a class="cl" href="http://english.hf.cas.cn/" target="_blank" rel="noopener"><img src="assets/ico_caships2.jpg" alt="CASHIPS"></a>
+      <a class="cl" href="https://expleogroup.com" target="_blank" rel="noopener"><img src="assets/ico_expleo.jpg" alt="Expleo"></a>
+      <a class="cl" href="http://www.tsc.uvigo.es/" target="_blank" rel="noopener"><img src="assets/ico_tscvigo.jpg" alt="TSC / Universidade de Vigo"></a>
+      <a class="cl" href="http://www.ipfn.ist.utl.pt/" target="_blank" rel="noopener"><img src="assets/ico_ipfn.jpg" alt="IPFN / IST"></a>
+      <a class="cl" href="https://www.ffi.no/en" target="_blank" rel="noopener"><img src="assets/ico_ffi.jpg" alt="FFI Norway"></a>
+      <a class="cl" href="http://www.research.philips.com/" target="_blank" rel="noopener"><img src="assets/ico_phres.jpg" alt="Philips Research"></a>
+      <a class="cl" href="http://www.ccfe.ac.uk/" target="_blank" rel="noopener"><img src="assets/ico_ccfe.jpg" alt="CCFE"></a>
+      <a class="cl" href="https://www.skao.int/en" target="_blank" rel="noopener"><img src="assets/ico_ska_pt.jpg" alt="SKA Portugal"></a>
+      <a class="cl" href="http://www.ipr.res.in/" target="_blank" rel="noopener"><img src="assets/ico_ipr.jpg" alt="Institute for Plasma Research"></a>
+      <!-- set B — exact duplicate for seamless loop -->
+      <a class="cl" href="http://www.esa.int/" target="_blank" rel="noopener"><img src="assets/ico_esa.jpg" alt="European Space Agency"></a>
+      <a class="cl" href="https://www.joanneum.at/" target="_blank" rel="noopener"><img src="assets/ico_jor.jpg" alt="JOANNEUM RESEARCH"></a>
+      <a class="cl" href="http://www.it.pt/" target="_blank" rel="noopener"><img src="assets/ico_it.jpg" alt="Instituto de Telecomunicações"></a>
+      <a class="cl" href="http://www.ijs.si/ijsw/JSI" target="_blank" rel="noopener"><img src="assets/ico_ijs.jpg" alt="Institut Jožef Stefan"></a>
+      <a class="cl" href="http://www.ipp.mpg.de/" target="_blank" rel="noopener"><img src="assets/ico_ipp.jpg" alt="IPP / MPG Munich"></a>
+      <a class="cl" href="http://www.aspoeck.com/" target="_blank" rel="noopener"><img src="assets/ico_aspock.jpg" alt="Aspock Systems"></a>
+      <a class="cl" href="https://www.vttresearch.com/en" target="_blank" rel="noopener"><img src="assets/ico_vtt.jpg" alt="VTT Finland"></a>
+      <a class="cl" href="http://www.iter.org/" target="_blank" rel="noopener"><img src="assets/ico_iter.jpg" alt="ITER"></a>
+      <a class="cl" href="http://www.magyc.it/" target="_blank" rel="noopener"><img src="assets/ico_magyc.jpg" alt="Magyc"></a>
+      <a class="cl" href="http://www.ciemat.es/" target="_blank" rel="noopener"><img src="assets/ico_ciemat.jpg" alt="CIEMAT"></a>
+      <a class="cl" href="http://www.activespacetech.com/" target="_blank" rel="noopener"><img src="assets/ico_ast.jpg" alt="Active Space Technologies"></a>
+      <a class="cl" href="https://uclouvain.be/en/index.html" target="_blank" rel="noopener"><img src="assets/ico_ucl.jpg" alt="UCL Belgium"></a>
+      <a class="cl" href="http://www.gov.uk/government/organisations/uk-atomic-energy-authority" target="_blank" rel="noopener"><img src="assets/ico_ukaea.jpg" alt="UKAEA"></a>
+      <a class="cl" href="http://english.hf.cas.cn/" target="_blank" rel="noopener"><img src="assets/ico_caships2.jpg" alt="CASHIPS"></a>
+      <a class="cl" href="https://expleogroup.com" target="_blank" rel="noopener"><img src="assets/ico_expleo.jpg" alt="Expleo"></a>
+      <a class="cl" href="http://www.tsc.uvigo.es/" target="_blank" rel="noopener"><img src="assets/ico_tscvigo.jpg" alt="TSC / Universidade de Vigo"></a>
+      <a class="cl" href="http://www.ipfn.ist.utl.pt/" target="_blank" rel="noopener"><img src="assets/ico_ipfn.jpg" alt="IPFN / IST"></a>
+      <a class="cl" href="https://www.ffi.no/en" target="_blank" rel="noopener"><img src="assets/ico_ffi.jpg" alt="FFI Norway"></a>
+      <a class="cl" href="http://www.research.philips.com/" target="_blank" rel="noopener"><img src="assets/ico_phres.jpg" alt="Philips Research"></a>
+      <a class="cl" href="http://www.ccfe.ac.uk/" target="_blank" rel="noopener"><img src="assets/ico_ccfe.jpg" alt="CCFE"></a>
+      <a class="cl" href="https://www.skao.int/en" target="_blank" rel="noopener"><img src="assets/ico_ska_pt.jpg" alt="SKA Portugal"></a>
+      <a class="cl" href="http://www.ipr.res.in/" target="_blank" rel="noopener"><img src="assets/ico_ipr.jpg" alt="Institute for Plasma Research"></a>
+    </div>
+  </div>
+
+  <!-- INTERNATIONAL RESEARCH PROGRAMMES -->
+  <div class="programmes">
+
+    <div class="prog-row">
+      <div class="prog-img">
+        <img src="assets/wcube.jpg" alt="W-Cube">
+      </div>
+      <div class="prog-content">
+        <div class="prog-tag">ESA · CubeSat Programme</div>
+        <div class="prog-title">W-Cube</div>
+        <p class="prog-body">W-Cube is an ESA CubeSat mission designed to perform W-band (75 GHz) atmospheric channel propagation measurements from a LEO nanosatellite. LC Technologies contributed to the design and development of the beacon receiver front-end for the ground station measurement terminal.</p>
+        <div class="prog-rule"></div>
+      </div>
+    </div>
+
+    <div class="prog-row">
+      <div class="prog-img">
+        <img src="assets/ska.jpg" alt="SKA">
+      </div>
+      <div class="prog-content">
+        <div class="prog-tag">SKA Observatory · International</div>
+        <div class="prog-title">Square Kilometre Array</div>
+        <p class="prog-body">The SKAO is a next-generation radio astronomy-driven Big Data facility that will revolutionise our understanding of the Universe and the laws of fundamental physics. Enabled by cutting-edge technology, it promises to have a major impact on society, in science and beyond.</p>
+        <div class="prog-rule"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- EU FUNDED PROJECTS -->
+  <div class="eu-section">
+    <div class="eu-header">
+      <div class="eu-header-kicker">EU Funded Research · PRR</div>
+      <h2 class="eu-header-h2">Recuperar Portugal</h2>
+      <p class="eu-header-sub">LC Technologies participates in European co-funded research under the Recovery and Resilience Plan, supporting the development of advanced millimeter-wave diagnostic instrumentation for nuclear fusion.</p>
+    </div>
+    <a class="eu-project-card" href="prr.html">
+      <div class="eu-project-card-inner">
+        <img src="https://www.cupidotech.com/vs_cartaz.jpg" alt="PRR Project Poster — #Construir o Futuro Projecto 2671">
+        <div class="eu-project-card-label">
+          <div class="eu-project-card-tag">Projecto 2671 · #Construir o Futuro</div>
+          <div class="eu-project-card-title">Demonstrador para desenvolvimento de componentes e sistemas de diagnóstico de ondas-milimétricas para fusão nuclear</div>
+          <div class="eu-project-card-rule"></div>
+        </div>
+      </div>
+    </a>
+  </div>
+
+  <!-- CONTACT -->
+  <div class="close">
+    <div class="close-h2">"The heart of science<br>is measurement."<span class="close-attr"> — Erik Brynjolfsson</span></div>
+    <div class="close-r">
+      <div class="close-detail">
+        <a href="mailto:info@cupidotech.com">info@cupidotech.com</a><br>
+        +351 234 283 611*<br>
+        Eixo · Aveiro · Portugal
+      </div>
+      <div class="close-footnote">*custo de chamada para a rede fixa nacional</div>
+      <a href="contact.html" class="close-btn" style="text-decoration:none;">Get in touch</a>
+    </div>
+  </div>
+
+  <footer class="foot">
+    <div class="foot-l">© 2026 LC Technologies</div>
+    <div class="foot-r">
+      <a href="privacy.html" class="foot-link">Privacy</a>
+      <a href="terms.html" class="foot-link">Terms</a>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+  const site=document.getElementById('site'),toggle=document.getElementById('themeToggle'),moon=document.getElementById('iconMoon'),sun=document.getElementById('iconSun');
+  const hamburger=document.getElementById('hamburger'),mobileMenu=document.getElementById('mobileMenu');
+  let isLight=false;
+  function setMode(l){isLight=l;site.classList.toggle('lm',l);moon.classList.toggle('active',!l);sun.classList.toggle('active',l);}
+  setMode(false);
+  toggle.addEventListener('click',()=>setMode(!isLight));
+  hamburger.addEventListener('click',()=>{
+    const open=mobileMenu.classList.toggle('open');
+    document.getElementById('iconMenu').style.display=open?'none':'block';
+    document.getElementById('iconClose').style.display=open?'block':'none';
+  });
+  mobileMenu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{
+    mobileMenu.classList.remove('open');
+    document.getElementById('iconMenu').style.display='block';
+    document.getElementById('iconClose').style.display='none';
+  }));
+</script>

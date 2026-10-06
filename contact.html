@@ -1,0 +1,327 @@
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap');
+
+  :root {
+    --bg:#08090b;--nav-bg:rgba(8,9,11,0.94);--nav-border:rgba(255,255,255,0.08);
+    --fg:#d4d8e0;--fg-dim:rgba(212,216,224,0.45);--fg-faint:rgba(212,216,224,0.22);
+    --fg-ghost:rgba(212,216,224,0.15);--border-thin:rgba(255,255,255,0.06);
+    --heading:#ffffff;--accent:#b0c32c;--accent-blue:#b5c5e9;
+    --cta-bg:#d4d8e0;--cta-fg:#08090b;
+    --input-bg:rgba(255,255,255,0.04);--input-border:rgba(255,255,255,0.1);--input-focus:rgba(181,197,233,0.12);
+    --track-bg:rgba(255,255,255,0.08);--track-border:rgba(255,255,255,0.14);--thumb-color:rgba(212,216,224,0.5);
+  }
+  .lm {
+    --bg:#ebf5ec;--nav-bg:rgba(235,245,236,0.94);--nav-border:rgba(6,28,55,0.1);
+    --fg:#061c37;--fg-dim:rgba(6,28,55,0.55);--fg-faint:rgba(6,28,55,0.35);
+    --fg-ghost:rgba(6,28,55,0.22);--border-thin:rgba(6,28,55,0.08);
+    --heading:#061c37;--accent:#b0c32c;--accent-blue:#061c37;
+    --cta-bg:#061c37;--cta-fg:#ebf5ec;
+    --input-bg:rgba(6,28,55,0.04);--input-border:rgba(6,28,55,0.15);--input-focus:rgba(181,197,233,0.25);
+    --track-bg:rgba(6,28,55,0.08);--track-border:rgba(6,28,55,0.18);--thumb-color:rgba(6,28,55,0.4);
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0;}
+  .s{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--fg);width:100%;transition:background 0.35s ease,color 0.35s ease;}
+
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:64px;position:fixed;top:0;left:0;right:0;z-index:20;background:var(--nav-bg);border-bottom:0.5px solid var(--nav-border);transition:background 0.35s ease,border-color 0.35s ease;}
+  .logo{display:inline-flex;align-items:baseline;gap:5px;font-family:Arial,Helvetica,sans-serif;font-weight:bold;text-decoration:none;}
+  .logo-lc{font-size:28px;color:#ffffff;line-height:1;}
+  .logo-tech{font-size:24px;line-height:1;}
+  .logo-t{color:#b1c625;}.logo-ech{color:#b1c6fc;}
+  .lm .logo-lc,.lm .logo-t,.lm .logo-ech{-webkit-text-stroke:0.6px #061c37;}
+  .nav-r{display:flex;align-items:center;gap:36px;}
+  .nav-links{display:flex;gap:32px;}
+  .nav-links a{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--fg-dim);text-decoration:none;cursor:pointer;transition:color 0.2s;}
+  .nav-links a:hover,.nav-links a.active{color:var(--fg);}
+  .theme-toggle{display:flex;align-items:center;gap:9px;cursor:pointer;user-select:none;}
+  .tt-icon{font-size:11px;color:var(--fg-dim);transition:color 0.25s;line-height:1;}
+  .tt-icon.active{color:var(--fg);}
+  .tt-track{position:relative;width:36px;height:18px;background:var(--track-bg);border:0.5px solid var(--track-border);border-radius:9px;transition:background 0.3s,border-color 0.3s;}
+  .tt-thumb{position:absolute;top:3px;left:3px;width:10px;height:10px;border-radius:50%;background:var(--thumb-color);transition:transform 0.28s cubic-bezier(.4,0,.2,1),background 0.25s;}
+  .lm .tt-thumb{transform:translateX(18px);}
+
+  /* PAGE HEADER */
+  .page-header{
+    padding:148px 48px 80px;
+    border-bottom:0.5px solid var(--border-thin);
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:48px;
+    align-items:end;
+  }
+  .ph-kicker{font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--accent);margin-bottom:16px;}
+  .ph-h1{font-size:52px;font-weight:300;line-height:1.05;letter-spacing:-1.5px;color:var(--heading);transition:color 0.35s;}
+  .ph-body{font-size:13px;font-weight:300;line-height:1.9;color:var(--fg-dim);max-width:480px;align-self:end;}
+
+  /* CONTACT GRID */
+  .contact-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    border-bottom:0.5px solid var(--border-thin);
+  }
+
+  /* FORM SIDE */
+  .contact-form{padding:72px 48px;border-right:0.5px solid var(--border-thin);}
+
+  .field{margin-bottom:28px;}
+  .field:last-of-type{margin-bottom:36px;}
+  .field label{
+    display:block;
+    font-size:9px;letter-spacing:2.5px;text-transform:uppercase;
+    color:var(--fg-faint);
+    margin-bottom:10px;
+    transition:color 0.2s;
+  }
+  .field input,
+  .field textarea,
+  .field select{
+    width:100%;
+    background:var(--input-bg);
+    border:0.5px solid var(--input-border);
+    color:var(--fg);
+    font-family:'Inter',system-ui,sans-serif;
+    font-size:13px;
+    font-weight:300;
+    padding:12px 16px;
+    outline:none;
+    transition:border-color 0.2s, background 0.35s;
+    appearance:none;
+    -webkit-appearance:none;
+  }
+  .field textarea{resize:vertical;min-height:140px;line-height:1.7;}
+  .field input:focus,
+  .field textarea:focus{
+    border-color:var(--accent-blue);
+    background:var(--input-focus);
+  }
+  .field input::placeholder,
+  .field textarea::placeholder{color:var(--fg-faint);}
+
+  .form-submit{
+    font-size:9px;letter-spacing:2.5px;text-transform:uppercase;
+    color:var(--cta-fg);background:var(--cta-bg);
+    padding:14px 32px;cursor:pointer;
+    border:none;
+    font-family:'Inter',system-ui,sans-serif;
+    transition:opacity 0.2s;
+    display:inline-block;
+  }
+  .form-submit:hover{opacity:0.72;}
+
+  /* feedback messages */
+  .form-msg{
+    display:none;
+    margin-top:20px;
+    font-size:12px;
+    font-weight:300;
+    line-height:1.7;
+    padding:14px 16px;
+    border:0.5px solid var(--border-thin);
+  }
+  .form-msg.success{color:var(--accent);border-color:var(--accent);}
+  .form-msg.error{color:#e07070;border-color:#e07070;}
+
+  /* DETAILS SIDE */
+  .contact-details{padding:72px 48px;}
+  .cd-block{margin-bottom:48px;}
+  .cd-block:last-child{margin-bottom:0;}
+  .cd-label{font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:var(--accent);margin-bottom:14px;}
+  .cd-val{font-size:15px;font-weight:300;color:var(--heading);line-height:1.8;transition:color 0.35s;}
+  .cd-val a{color:var(--accent-blue);text-decoration:none;transition:color 0.2s;}
+  .cd-val a:hover{color:var(--fg);}
+  .cd-footnote{font-size:8px;letter-spacing:0.3px;color:var(--fg-ghost);margin-top:6px;}
+
+  .foot{padding:22px 48px;display:flex;align-items:center;justify-content:space-between;border-top:0.5px solid var(--border-thin);}
+  .foot-l{font-size:9px;letter-spacing:1.5px;color:var(--fg-ghost);}
+  .foot-r{display:flex;gap:24px;}
+  .foot-r span{font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--fg-ghost);cursor:pointer;}
+  .foot-link{font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--fg-ghost);text-decoration:none;transition:color 0.2s;}
+  .foot-link:hover{color:var(--fg);}
+
+  .nav-hamburger{display:none;align-items:center;justify-content:center;cursor:pointer;color:var(--fg);width:32px;height:32px;}
+  .mobile-menu{display:none;position:fixed;top:64px;left:0;right:0;z-index:99;background:var(--nav-bg);border-bottom:0.5px solid var(--nav-border);padding:24px 24px 32px;flex-direction:column;gap:0;transition:background 0.35s;}
+  .mobile-menu.open{display:flex;}
+  .mobile-menu a{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--fg-dim);text-decoration:none;padding:14px 0;border-bottom:0.5px solid var(--border-thin);transition:color 0.2s;}
+  .mobile-menu a:last-child{border-bottom:none;}
+  .mobile-menu a:hover{color:var(--fg);}
+
+  @media (max-width:768px){
+    .nav{padding:0 24px;}
+    .nav-links{display:none;}
+    .nav-hamburger{display:flex;}
+    .nav-r{gap:20px;}
+    .logo-lc{font-size:22px;}
+    .logo-tech{font-size:18px;}
+
+    .page-header{padding:100px 24px 48px;grid-template-columns:1fr;}
+    .ph-h1{font-size:36px;letter-spacing:-1px;}
+
+    .contact-grid{grid-template-columns:1fr;}
+    .contact-form{padding:40px 24px;border-right:none;border-bottom:0.5px solid var(--border-thin);}
+    .contact-details{padding:40px 24px;}
+
+    .foot{padding:18px 24px;flex-direction:row;align-items:center;justify-content:space-between;}
+  }
+</style>
+
+<div class="s" id="site">
+
+  <nav class="nav">
+    <a class="logo" href="index.html">
+      <span class="logo-lc">LC</span>
+      <span class="logo-tech"><span class="logo-t">T</span><span class="logo-ech">echnologies</span></span>
+    </a>
+    <div class="nav-r">
+      <div class="nav-links">
+        <a href="diagnostics.html">Diagnostics</a>
+        <a href="capabilities.html">Capabilities</a>
+        <a href="about.html">About</a>
+        <a href="contact.html" class="active">Contact</a>
+      </div>
+      <div class="theme-toggle" id="themeToggle">
+        <span class="tt-icon" id="iconMoon">☽</span>
+        <div class="tt-track"><div class="tt-thumb"></div></div>
+        <span class="tt-icon" id="iconSun">☀</span>
+      </div>
+      <div class="nav-hamburger" id="hamburger">
+        <svg id="iconMenu" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/></svg>
+        <svg id="iconClose" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="display:none;"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </div>
+    </div>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="diagnostics.html">Diagnostics</a>
+    <a href="capabilities.html">Capabilities</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+  </div>
+
+  <div class="page-header">
+    <div>
+      <div class="ph-kicker">Contact</div>
+      <h1 class="ph-h1">Let's work<br>together.</h1>
+    </div>
+    <p class="ph-body">Tell us about your project, instrumentation necessities or requirements. We'll get back to you directly.</p>
+  </div>
+
+  <div class="contact-grid">
+
+    <!-- FORM -->
+    <div class="contact-form">
+      <form id="contactForm" action="mail.php" method="POST" novalidate>
+
+        <div class="field">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" placeholder="Your name" required>
+        </div>
+
+        <div class="field">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" placeholder="your@email.com" required>
+        </div>
+
+        <div class="field">
+          <label for="organisation">Organisation</label>
+          <input type="text" id="organisation" name="organisation" placeholder="Institution or company">
+        </div>
+
+        <div class="field">
+          <label for="subject">Subject</label>
+          <input type="text" id="subject" name="subject" placeholder="Brief description of your enquiry" required>
+        </div>
+
+        <div class="field">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" placeholder="Describe your project, frequency range, application, or any relevant technical details." required></textarea>
+        </div>
+
+        <button type="submit" class="form-submit">Send message</button>
+
+        <div class="form-msg success" id="msgSuccess">
+          Message sent. We'll be in touch shortly.
+        </div>
+        <div class="form-msg error" id="msgError">
+          Something went wrong. Please try again or email us directly at <a href="mailto:info@cupidotech.com">info@cupidotech.com</a>.
+        </div>
+
+      </form>
+    </div>
+
+    <!-- DETAILS -->
+    <div class="contact-details">
+      <div class="cd-block">
+        <div class="cd-label">Email</div>
+        <div class="cd-val"><a href="mailto:info@cupidotech.com">info@cupidotech.com</a></div>
+      </div>
+      <div class="cd-block">
+        <div class="cd-label">Phone</div>
+        <div class="cd-val">+351 234 283 611</div>
+        <div class="cd-footnote">*custo de chamada para a rede fixa nacional</div>
+      </div>
+      <div class="cd-block">
+        <div class="cd-label">Location</div>
+        <div class="cd-val">Eixo · Aveiro<br>Portugal</div>
+      </div>
+      <div class="cd-block">
+        <div class="cd-label">Response</div>
+        <div class="cd-val">We read every message<br>and reply as soon as we can.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <footer class="foot">
+    <div class="foot-l">© 2026 LC Technologies</div>
+    <div class="foot-r">
+      <a href="privacy.html" class="foot-link">Privacy</a>
+      <a href="terms.html" class="foot-link">Terms</a>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+  const site=document.getElementById('site'),toggle=document.getElementById('themeToggle'),moon=document.getElementById('iconMoon'),sun=document.getElementById('iconSun');
+  const hamburger=document.getElementById('hamburger'),mobileMenu=document.getElementById('mobileMenu');
+  let isLight=false;
+  function setMode(l){isLight=l;site.classList.toggle('lm',l);moon.classList.toggle('active',!l);sun.classList.toggle('active',l);}
+  setMode(false);
+  toggle.addEventListener('click',()=>setMode(!isLight));
+  hamburger.addEventListener('click',()=>{
+    const open=mobileMenu.classList.toggle('open');
+    document.getElementById('iconMenu').style.display=open?'none':'block';
+    document.getElementById('iconClose').style.display=open?'block':'none';
+  });
+  mobileMenu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{
+    mobileMenu.classList.remove('open');
+    document.getElementById('iconMenu').style.display='block';
+    document.getElementById('iconClose').style.display='none';
+  }));
+
+  /* AJAX form submission — stays on page, shows feedback */
+  document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const form = this;
+    const successMsg = document.getElementById('msgSuccess');
+    const errorMsg   = document.getElementById('msgError');
+    successMsg.style.display = 'none';
+    errorMsg.style.display   = 'none';
+
+    const data = new FormData(form);
+
+    fetch('mail.php', { method:'POST', body: data })
+      .then(r => r.json())
+      .then(res => {
+        if (res.status === 'ok') {
+          successMsg.style.display = 'block';
+          form.reset();
+        } else {
+          errorMsg.style.display = 'block';
+        }
+      })
+      .catch(() => { errorMsg.style.display = 'block'; });
+  });
+</script>
